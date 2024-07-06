@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple 2D Game with Controls</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #0000ff; }
+        canvas { background-color: #ffffff; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const gridSize = 10;
+        const cellSize = canvas.width / gridSize;
+
+        let playerX = 0;
+        let playerY = 0;
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i <= gridSize; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * cellSize, 0);
+                ctx.lineTo(i * cellSize, canvas.height);
+                ctx.moveTo(0, i * cellSize);
+                ctx.lineTo(canvas.width, i * cellSize);
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+            }
+        }
+
+        function drawPlayer() {
+            ctx.fillStyle = '#ff0000';
+            ctx.fillRect(playerX * cellSize, playerY * cellSize, cellSize, cellSize);
+        }
+
+        function update() {
+            drawGrid();
+            drawPlayer();
+        }
+
+        window.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    if (playerY > 0) playerY--;
+                    break;
+                case 'ArrowDown':
+                    if (playerY < gridSize - 1) playerY++;
+                    break;
+                case 'ArrowLeft':
+                    if (playerX > 0) playerX--;
+                    break;
+                case 'ArrowRight':
+                    if (playerX < gridSize - 1) playerX++;
+                    break;
+            }
+            update();
+        });
+
+        update();
+    </script>
+</body>
+</html>
