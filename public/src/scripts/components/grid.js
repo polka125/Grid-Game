@@ -2,7 +2,7 @@
 
 export function drawGrid(ctx, gridSize) {
     ctx.strokeStyle = '#000000'; // Set grid line color
-    ctx.lineWidth = 1; // Set grid line width
+    ctx.lineWidth = 0.3; // Set grid line width
 
     for (let x = 0; x <= ctx.canvas.width; x += gridSize) {
         ctx.moveTo(x, 0);
